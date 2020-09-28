@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/index', function () {
-    return view('welcome');
-});
+// Route::get('/index', function () {
+//     return view('welcome');
+// });
+
+Auth::routes();
+Route::get('/', 'FrontController@index');
+Route::get('/index', 'FrontController@index');
+Route::get('/news', 'FrontController@news');
+Route::get('/news_info', 'FrontController@news_info');
+Route::get('/contact_us', 'FrontController@contact_us');
+// Route::get('/template.html', 'FrontController@template');
+
