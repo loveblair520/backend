@@ -7,8 +7,8 @@
         <div class="row">
             <div class="col-12 my-3 my-md-0 col-md-6">
                 <div class="image_box h-100">
-                    <a href="./images/index/news/news_example.JPG" data-lightbox="image-1" data-title="My caption">
-                        <img width="100%" src="./images/index/news/news_example.JPG" alt="">
+                    <a href="https://memeprod.sgp1.digitaloceanspaces.com/meme/dd1db6d43067597314df590613070f37.png" data-lightbox="image-1" data-title="My caption">
+                        <img width="100%" src="https://memeprod.sgp1.digitaloceanspaces.com/meme/dd1db6d43067597314df590613070f37.png" alt="">
                     </a>
                 </div>
             </div>
