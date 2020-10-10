@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\News;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -13,7 +14,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        //
+        $news_list = News::all();
+        return view('admin.news.index',compact('news_list'));
     }
 
     /**
@@ -23,7 +25,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.news.create');
+
     }
 
     /**
@@ -56,7 +59,8 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.news.edit');
+
     }
 
     /**
