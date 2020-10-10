@@ -15,7 +15,7 @@
 //     return view('welcome');
 // });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 Route::get('/', 'FrontController@index');
 Route::get('/index', 'FrontController@index');
 Route::get('/news', 'FrontController@news');
