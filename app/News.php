@@ -4,12 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-
-class place extends Model
+class News extends Model
 {
+
     //
 
+    protected $table = 'news' ;
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'title', 'sub_title', 'content','image_url'
     ];
 }

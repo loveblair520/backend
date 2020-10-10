@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect2">您推薦的景點位置</label>
-                <select multiple class="form-control" id="exampleFormControlSelect2" name="location[]">
+                <select multiple class="form-control" id="exampleFormControlSelect2" name="location">
                   <option value="north_tw">北台灣</option>
                   <option value="mid_tw">中台灣</option>
                   <option value="south_tw">南臺灣</option>
