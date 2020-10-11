@@ -38,6 +38,15 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         //
+
+        $new_news = new News();
+
+        $new_news->title = $request->title;
+        $new_news->sub_title = $request->sub_title;
+        $new_news->content = $request->content;
+        $new_news->image_url = '';
+
+        $new_news->save();
     }
 
     /**
