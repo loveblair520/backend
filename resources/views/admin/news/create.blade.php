@@ -32,7 +32,7 @@
         <label for="content">內容</label>
         <textarea class="form-control" id="content" rows="3" name="content" required></textarea>
       </div>
-    <button type="submit" class="btn btn-primary">送出審查</button>
+    <button type="submit" class="btn btn-primary">新增</button>
 </form>
 </div>
 
