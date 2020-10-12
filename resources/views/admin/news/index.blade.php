@@ -22,6 +22,7 @@
             <th>標題</th>
             <th>圖片</th>
             <th>副標題</th>
+            <th>上傳時間</th>
             <th width="150">功能</th>
         </tr>
     </thead>
@@ -30,8 +31,9 @@
         @foreach ($news_list as $news)
             <tr>
                         <th>{{$news->title}}</th>
-                        <th><img width="200" src="{{$news->image_url}}" alt=""></th>
+                        <th><img width="200" src="{{asset('/storage/'.$news->image_url)}}" alt=""></th>
                         <th>{{$news->sub_title}}</th>
+                        <th>{{$news->created_at}}</th>
                         <th>
                             <a href="news/edit/{{$news->id}}" class="btn btn-sm btn-info">編輯</a>
                             <button class="btn btn-danger btn-sm">刪除</button>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\News;
+use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -37,16 +38,25 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $requestData = $request->all();
 
-        $new_news = new News();
+        //檔案上傳並取得圖片名稱
+        $file_name = $request->file('image_url')->store('','public');
 
-        $new_news->title = $request->title;
-        $new_news->sub_title = $request->sub_title;
-        $new_news->content = $request->content;
-        $new_news->image_url = '';
+        $requestData['image_url']= $file_name;
 
-        $new_news->save();
+        News::create($requestData);
+        // dd($requestData);
+        // $new_news = new News();
+
+        // $new_news->title = $request->title;
+        // $new_news->sub_title = $request->sub_title;
+        // $new_news->content = $request->content;
+        // $new_news->image_url = $file_name;
+
+        // $new_news->save();
+
+        return redirect('/admin/news');
     }
 
     /**
@@ -92,6 +102,9 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //刪除舊有的圖片
+        $news = News::find($id);
+        $old_image = $news->image_url;
+        // File::delete(public_path().$old_image);
     }
 }
