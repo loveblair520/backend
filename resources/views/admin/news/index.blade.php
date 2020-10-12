@@ -31,7 +31,7 @@
         @foreach ($news_list as $news)
             <tr>
                         <th>{{$news->title}}</th>
-                        <th><img width="200" src="{{asset('/storage/'.$news->image_url)}}" alt=""></th>
+                        <th><img width="200" src="{{$news->image_url}}" alt=""></th>
                         <th>{{$news->sub_title}}</th>
                         <th>{{$news->created_at}}</th>
                         <th>

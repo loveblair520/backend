@@ -40,10 +40,20 @@ class NewsController extends Controller
     {
         $requestData = $request->all();
 
+        // 第一種上傳方式file storage
         //檔案上傳並取得圖片名稱
-        $file_name = $request->file('image_url')->store('','public');
+        // $file_name = $request->file('image_url')->store('','public');
 
-        $requestData['image_url']= $file_name;
+        // $requestData['image_url']= $file_name;
+
+        // 第二種檔案上傳方式 move
+        if($request->hasFile('image_url')){
+            $file = $request->file('image_url');
+            $path = $this->fileUpload($file,'news');
+            $requestData['image_url'] = $path;
+        }
+
+
 
         News::create($requestData);
         // dd($requestData);
@@ -78,7 +88,13 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.news.edit');
+        //取得特定一筆資料
+        // $news = News::where('id','=',$id)->first();
+        //用find只能找id
+        $news = News::find($id);
+
+        // dd($news);
+        return view('admin.news.edit',compact('news'));
 
     }
 
@@ -107,4 +123,27 @@ class NewsController extends Controller
         $old_image = $news->image_url;
         // File::delete(public_path().$old_image);
     }
+
+    private function fileUpload($file,$dir){
+        //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
+        if(! is_dir('uplaod/')){
+            mkdir('upload/');
+        }
+        //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
+        if(! is_dir('uplaod/'.$dir)){
+            mkdir('upload/'.$dir);
+        }
+
+
+        //取得檔案的副檔名
+        $extension = $file->getClientOriginalExtension();
+        //檔案名稱會被重新命名
+        $filename = strval(time().md5(rand(100,200))).'.'.$extension;
+        //移動到指定路徑
+        move_uploaded_file($file, public_path().'/upload/'.$dir.'/'.$filename);
+        //回傳 資料庫儲存用的路徑格式
+        return '/upload/'.$dir.'/'.$filename;
+    }
+
+
 }
