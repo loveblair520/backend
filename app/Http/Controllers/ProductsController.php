@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Products;
+use App\ProductTypes;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -13,7 +15,11 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('admin.products.index');
+        $news_list = Products::all();
+        // $types = ProductTypes::all();
+
+        
+        return view('admin.products.index',compact('news_list'));
     }
 
     /**
