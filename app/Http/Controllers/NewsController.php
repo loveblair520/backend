@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\News;
-use Facade\FlareClient\Stacktrace\File;
+// use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class NewsController extends Controller
 {
@@ -108,6 +109,31 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         //dd($request->all());
+        $news = News::find($id);
+        $requestData = $request->all();
+
+
+
+
+
+
+        //判斷是否有上傳圖片 若有
+        if($request->hasFile('image_url')){
+            //刪除舊有圖片
+            $old_image =  $news->image_url;
+            File::delete(public_path().$old_image);
+            //上傳新的圖片
+            $file =$request->file('image_url');
+            $path =$this->fileUpload($file,'news');
+
+            //將新圖片的路徑，放入$RequestData中
+            $requestData['image_url'] = $path;
+
+        }
+
+        $news->update($requestData);
+
+        return redirect('/admin/news');
     }
 
     /**
@@ -125,14 +151,14 @@ class NewsController extends Controller
     }
 
     private function fileUpload($file,$dir){
-        //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
-        if(! is_dir('uplaod/')){
-            mkdir('upload/');
-        }
-        //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
-        if(! is_dir('uplaod/'.$dir)){
-            mkdir('upload/'.$dir);
-        }
+        // //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
+        // if(! is_dir('uplaod/')){
+        //     mkdir('upload/');
+        // }
+        // //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
+        // if(! is_dir('uplaod/'.$dir)){
+        //     mkdir('upload/'.$dir);
+        // }
 
 
         //取得檔案的副檔名
