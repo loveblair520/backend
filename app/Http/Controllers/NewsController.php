@@ -48,24 +48,14 @@ class NewsController extends Controller
         // $requestData['image_url']= $file_name;
 
         // 第二種檔案上傳方式 move
-        if($request->hasFile('image_url')){
+        if($request->hasFile('image_url')) {
             $file = $request->file('image_url');
             $path = $this->fileUpload($file,'news');
             $requestData['image_url'] = $path;
         }
 
 
-
         News::create($requestData);
-        // dd($requestData);
-        // $new_news = new News();
-
-        // $new_news->title = $request->title;
-        // $new_news->sub_title = $request->sub_title;
-        // $new_news->content = $request->content;
-        // $new_news->image_url = $file_name;
-
-        // $new_news->save();
 
         return redirect('/admin/news');
     }
@@ -113,10 +103,6 @@ class NewsController extends Controller
         $requestData = $request->all();
 
 
-
-
-
-
         //判斷是否有上傳圖片 若有
         if($request->hasFile('image_url')){
             //刪除舊有圖片
@@ -151,25 +137,23 @@ class NewsController extends Controller
     }
 
     private function fileUpload($file,$dir){
-        // //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
-        // if(! is_dir('uplaod/')){
-        //     mkdir('upload/');
-        // }
-        // //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
-        // if(! is_dir('uplaod/'.$dir)){
-        //     mkdir('upload/'.$dir);
-        // }
-
+        //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
+        if( ! is_dir('upload/')){
+            mkdir('upload/');
+        }
+        //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
+        if ( ! is_dir('upload/'.$dir)) {
+            mkdir('upload/'.$dir);
+        }
 
         //取得檔案的副檔名
         $extension = $file->getClientOriginalExtension();
         //檔案名稱會被重新命名
-        $filename = strval(time().md5(rand(100,200))).'.'.$extension;
+        $filename = strval(time().md5(rand(100, 200))).'.'.$extension;
         //移動到指定路徑
         move_uploaded_file($file, public_path().'/upload/'.$dir.'/'.$filename);
         //回傳 資料庫儲存用的路徑格式
         return '/upload/'.$dir.'/'.$filename;
     }
-
 
 }
