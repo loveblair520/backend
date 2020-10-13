@@ -133,7 +133,13 @@ class NewsController extends Controller
         //刪除舊有的圖片
         $news = News::find($id);
         $old_image = $news->image_url;
-        // File::delete(public_path().$old_image);
+        File::delete(public_path().$old_image);
+
+        //刪除資料庫資料
+        News::destroy($id);
+
+        return redirect('/admin/news');
+
     }
 
     private function fileUpload($file,$dir){
