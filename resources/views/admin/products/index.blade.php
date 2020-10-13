@@ -14,7 +14,7 @@
     </ol>
   </nav>
 
-  <a href="/admin/news/create" class="btn btn-success mb-3">新增商品</a>
+  <a href="/admin/products/create" class="btn btn-success mb-3">新增商品</a>
 
   <table id="example" class="table table-striped table-bordered" style="width:100%">
     <thead>
@@ -37,7 +37,7 @@
                         <th>{{$products->info}}</th>
                         <th>{{$products->date}}</th>
                         <th>
-                            <a href="news/edit/{{$products->id}}" class="btn btn-sm btn-info">編輯</a>
+                            <a href="products/edit/{{$products->id}}" class="btn btn-sm btn-info">編輯</a>
                             <button class="btn btn-danger btn-sm btn-delete" data-newsid="{{$products->id}}">刪除</button>
                         </th>
                     </tr>
