@@ -51,16 +51,33 @@
 @section('js')
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <script>
             $(document).ready(function() {
             $('#example').DataTable();
             $("#example").on("click" , ".btn-delete",function(){
                 var news_id = this.dataset.newsid;
-                var r = confirm("你確定要刪除嗎？");
-                if (r == true) {
+
+                Swal.fire({
+                title: '你確定要刪除嗎？',
+                text: "刪除不可以反悔哦！！！！",
+                icon: '警告！！！',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    // Swal.fire(
+                    // 'Deleted!',
+                    // 'Your file has been deleted.',
+                    // 'success'
+                    // )
                     window.location.href = `/admin/news/destroy/${news_id}`;
                 }
+                })
+
             });
         } );
         </script>
