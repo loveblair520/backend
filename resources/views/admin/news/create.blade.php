@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
 @endsection
 
@@ -40,5 +41,63 @@
 @endsection
 
 @section('js')
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="/js/summernote/lang_zh_TW.js"></script>
+    <script>
+        $(document).ready(function() {
+        $('#content').summernote({
+        lang: 'zh-TW',
+            toolbar: [
+        // [groupName, [list of button]]
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['strikethrough', 'superscript', 'subscript']],
+        ['insert', ['link', 'picture', 'video']],
+        ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']]
+            ],
+        popover: {
+            image: [
+                ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
+                ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                ['remove', ['removeMedia']]
+            ],
+            link: [
+                ['link', ['linkDialogShow', 'unlink']]
+            ],
+            table: [
+                ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
+                ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
+            ],
+            air: [
+                ['color', ['color']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['para', ['ul', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']]
+            ]
+        },
 
+        callbacks: {
+            onImageUpload: function(files) {
+                $.ajax({
+                    type:'post',
+                    url:'/ajax_img_upload',
+                    data:{
+                        img_file:files
+                    },
+                    success:function(result){
+                        // upload image to server and create imgNode...
+                        $summernote.summernote('insertNode', result);
+                    }
+                })
+
+            }
+  }
+
+        });;
+    });
+
+    </script>
 @endsection

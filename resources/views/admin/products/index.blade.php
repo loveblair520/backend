@@ -35,10 +35,10 @@
                         <th><img width="200" src="{{$products->product_image}}" alt=""></th>
                         <th>{{$products->price}}</th>
                         <th>{{$products->info}}</th>
-                        <th>{{$products->date}}</th>
+                        <th>{{$products->created_at}}</th>
                         <th>
                             <a href="products/edit/{{$products->id}}" class="btn btn-sm btn-info">編輯</a>
-                            <button class="btn btn-danger btn-sm btn-delete" data-newsid="{{$products->id}}">刪除</button>
+                            <button class="btn btn-danger btn-sm btn-delete" data-productsid="{{$products->id}}">刪除</button>
                         </th>
                     </tr>
         @endforeach
@@ -59,7 +59,7 @@
             $(document).ready(function() {
             $('#example').DataTable();
             $("#example").on("click" , ".btn-delete",function(){
-                var news_id = this.dataset.newsid;
+                var products_id = this.dataset.productsid;
 
                 Swal.fire({
                 title: '你確定要刪除嗎？',
@@ -76,7 +76,7 @@
                     // 'Your file has been deleted.',
                     // 'success'
                     // )
-                    window.location.href = `/admin/news/destroy/${news_id}`;
+                    window.location.href = `/admin/products/destroy/${products_id}`;
                 }
                 })
 

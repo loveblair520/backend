@@ -11,4 +11,9 @@ class ProductTypes extends Model
     protected $fillable = [
         'type_name','sort'
     ];
+
+    public function products(){
+
+        return $this->hasMany('App\Products','type_id');
+    }
 }

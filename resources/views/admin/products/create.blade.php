@@ -22,7 +22,7 @@
     </div>
     <div class="form-group">
         <label for="price">價錢</label>
-        <input type="text" class="form-control" id="price" aria-describedby="title" name="price" required>
+        <input type="number" class="form-control" id="price" aria-describedby="title" name="price" required>
       </div>
       <div class="form-group">
         <label for="product_image">上傳商品圖片<small class="text-danger">（建議圖片寬高為4:3）</small></label>

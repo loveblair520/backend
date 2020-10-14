@@ -9,6 +9,15 @@ class Products extends Model
     protected $table = 'products' ;
 
     protected $fillable = [
-        'name', 'product_image', 'price','info','info_image','date','type_id'
+        'name', 'product_image', 'price','info'
     ];
+
+    public function product_types(){
+
+        return $this->belongsTo('App\ProductTypes','type_id');
+        //Laravel 在建立關係的時候，會以"資料表名稱＋_id的欄位內容（product_types_id）"作為搜尋條件
+
+    }
+
+
 }

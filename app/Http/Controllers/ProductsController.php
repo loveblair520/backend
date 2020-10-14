@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Products;
 use App\ProductTypes;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -15,10 +16,12 @@ class ProductsController extends Controller
      */
     public function index()
     {
+        // $news_list = Products::with('product_types')->find(1);
+        // with(函式名字)抓取跟此筆資料有關係的其他資料表的資料
+        //Ｑ：為什麼要做關聯？ Ａ：每次搜尋都需要進不斷進出資料庫收集資料，對伺服器的負擔較大，讀取時間也會更久
+
+        // dd($news_list);
         $news_list = Products::all();
-        // $types = ProductTypes::all();
-
-
         return view('admin.products.index',compact('news_list'));
     }
 
@@ -73,10 +76,8 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $news = Products::find($id);
-
-        // dd($news);
-        return view('admin.products.edit',compact('news'));
+        $products = Products::find($id);
+        return view('admin.products.edit',compact('products'));
     }
 
     /**
@@ -88,7 +89,27 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $products = Products::find($id);
+        $requestData = $request->all();
+
+
+        //判斷是否有上傳圖片 若有
+        if($request->hasFile('product_image')){
+            //刪除舊有圖片
+            $old_image =  $products->product_image;
+            File::delete(public_path().$old_image);
+            //上傳新的圖片
+            $file =$request->file('product_image');
+            $path =$this->fileUpload($file,'news');
+
+            //將新圖片的路徑，放入$RequestData中
+            $requestData['product_image'] = $path;
+
+        }
+
+        $products->update($requestData);
+
+        return redirect('/admin/products');
     }
 
     /**
@@ -99,8 +120,35 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //刪除舊有的圖片
+        $products = Products::find($id);
+        $old_image = $products->product_image;
+        File::delete(public_path().$old_image);
+
+        //刪除資料庫資料
+        Products::destroy($id);
+
+        return redirect('/admin/products');
     }
 
+    private function fileUpload($file,$dir){
+        //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
+        if( ! is_dir('upload/')){
+            mkdir('upload/');
+        }
+        //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
+        if ( ! is_dir('upload/'.$dir)) {
+            mkdir('upload/'.$dir);
+        }
+
+        //取得檔案的副檔名
+        $extension = $file->getClientOriginalExtension();
+        //檔案名稱會被重新命名
+        $filename = strval(time().md5(rand(100, 200))).'.'.$extension;
+        //移動到指定路徑
+        move_uploaded_file($file, public_path().'/upload/'.$dir.'/'.$filename);
+        //回傳 資料庫儲存用的路徑格式
+        return '/upload/'.$dir.'/'.$filename;
+    }
 
 }
