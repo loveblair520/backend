@@ -19,7 +19,7 @@
   <table id="example" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
-            <th>名稱</th>
+            <th>商品名稱</th>
             <th>圖片</th>
             <th>價錢</th>
             <th>介紹內容</th>
