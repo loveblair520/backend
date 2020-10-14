@@ -9,7 +9,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/admin">後台</a></li>
-      <li class="breadcrumb-item active"><a href="/admin/news">商品管理</a> </li>
+      <li class="breadcrumb-item active"><a href="/admin/products">商品管理</a> </li>
       <li class="breadcrumb-item active" aria-current="page">編輯</li>
     </ol>
   </nav>
