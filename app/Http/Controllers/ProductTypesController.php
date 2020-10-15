@@ -12,10 +12,9 @@ class ProductTypesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($product_types_id)
     {
-        $product_types = ProductTypes::all();
-
+        dd($product_types_id);
         return view();
     }
 
