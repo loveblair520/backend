@@ -43,61 +43,74 @@
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <script src="/js/summernote/lang_zh_TW.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-zh-TW.min.js"></script>
+
     <script>
         $(document).ready(function() {
-        $('#content').summernote({
-        lang: 'zh-TW',
-            toolbar: [
-        // [groupName, [list of button]]
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['font', ['strikethrough', 'superscript', 'subscript']],
-        ['insert', ['link', 'picture', 'video']],
-        ['fontsize', ['fontsize']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']]
-            ],
-        popover: {
-            image: [
-                ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
-                ['float', ['floatLeft', 'floatRight', 'floatNone']],
-                ['remove', ['removeMedia']]
-            ],
-            link: [
-                ['link', ['linkDialogShow', 'unlink']]
-            ],
-            table: [
-                ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-                ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
-            ],
-            air: [
-                ['color', ['color']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['para', ['ul', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture']]
-            ]
-        },
-
-        callbacks: {
-            onImageUpload: function(files) {
-                $.ajax({
-                    type:'post',
-                    url:'/ajax_img_upload',
-                    data:{
-                        img_file:files
+            $('#content').summernote({
+                height: 150,
+                lang: 'zh-TW',
+                callbacks: {
+                    onImageUpload: function(files) {
+                        for(let i=0; i < files.length; i++) {
+                            $.upload(files[i]);
+                        }
                     },
-                    success:function(result){
-                        // upload image to server and create imgNode...
-                        $summernote.summernote('insertNode', result);
+                    onMediaDelete : function(target) {
+                        $.delete(target[0].getAttribute("src"));
                     }
-                })
+                },
+            });
 
+
+            $.upload = function (file) {
+                let out = new FormData();
+                out.append('file', file, file.name);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    method: 'POST',
+                    url: '/admin/ajax_upload_img',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    data: out,
+                    success: function (img) {
+                        $('#description').summernote('insertImage', img);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(textStatus + " " + errorThrown);
+                    }
+                });
+            };
+
+            $.delete = function (file_link) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    method: 'POST',
+                    url: '/admin/ajax_delete_img',
+                    data: {file_link:file_link},
+                    success: function (img) {
+                        console.log("delete:",img);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(textStatus + " " + errorThrown);
+                    }
+                });
             }
-  }
-
-        });;
-    });
-
+       });
     </script>
+
+
+
 @endsection

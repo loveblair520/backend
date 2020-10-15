@@ -14,7 +14,8 @@
 // Route::get('/index', function () {
 //     return view('welcome');
 // });
-Route::post('/ajax_img_upload','AjaxController@image_upload');
+Route::post('/ajax_upload_img','AdminController@ajax_upload_img');
+Route::post('/ajax_delete_img','AdminController@ajax_delete_img');
 
 Auth::routes(['register' => false]);
 Route::get('/', 'FrontController@index');
