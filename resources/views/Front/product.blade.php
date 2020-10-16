@@ -17,7 +17,7 @@
                             <h4>價錢{{$product->price}}</h4>
                             <img width="100%" src="{{$product->product_image}}" alt="圖片建議尺寸: 1000 x 567">
                             <p class="news_content">{{$product->info}}</p>
-                            <a class="btn btn-success" href="" role="button">點擊查看更多 &raquo;</a>
+                            <a class="btn btn-success" href="/product/{{$product->id}}" role="button">點擊查看更多 &raquo;</a>
                         </div>
                     </div>
                 @endforeach

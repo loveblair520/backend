@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\places;
+use App\Products;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\db;
@@ -72,6 +73,13 @@ class FrontController extends Controller
     {
         $product_types =ProductTypes::with('products')->get();
         return view('Front.product',compact('product_types'));
+    }
+
+    public function product_detail($product_id)
+    {
+        //取得特定一筆商品內容
+        $product =Products::find($product_id);
+        return view('Front.product_detail',compact('product'));
     }
 
 }

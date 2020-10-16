@@ -26,7 +26,9 @@ Route::get('/index', 'FrontController@index');
 Route::get('/news', 'FrontController@news');
 Route::get('/news_info/{news_id}', 'FrontController@news_info');
 Route::get('/contact_us', 'FrontController@contact_us');
-Route::get('/product', 'FrontController@product');
+Route::get('/product', 'FrontController@product'); //產品
+Route::get('/product/{product_id}', 'FrontController@product_detail'); //產品內頁
+
 
 Route::post('/store_contact', 'FrontController@store_contact');
 Route::get('/admin', 'HomeController@index')->name('home');
