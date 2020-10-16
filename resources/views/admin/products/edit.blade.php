@@ -22,7 +22,7 @@
     </div>
     <div class="form-group">
         <label for="price">價錢</label>
-        <input type="number" class="form-control" id="price" aria-describedby="title" name="price" value="{{$products->sub_title}}" required>
+        <input type="number" class="form-control" id="price" aria-describedby="title" name="price" value="{{$products->price}}" required>
       </div>
       <div class="form-group">
         <label for="product_image">現有商品照片<small class="text-danger">（建議圖片寬高為4:3）</small></label>
@@ -31,8 +31,8 @@
         <input type="file" class="form-control-file" id="product_image" name="product_image" >
       </div>
       <div class="form-group">
-        <label for="info">內容</label>
-        <textarea class="form-control" id="info" rows="3" name="info" value="{{$products->info}}" required></textarea>
+        <label for="info">介紹內容</label>
+        <textarea class="form-control" id="info" rows="3" name="info" required>{{$products->info}}</textarea>
       </div>
     <button type="submit" class="btn btn-primary">編輯</button>
 </form>

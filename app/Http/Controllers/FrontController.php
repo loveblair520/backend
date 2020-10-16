@@ -6,6 +6,7 @@ use App\places;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\db;
+use App\ProductTypes;
 
 
 class FrontController extends Controller
@@ -65,6 +66,12 @@ class FrontController extends Controller
 
 
         return 'success';
+    }
+
+    public function product()
+    {
+        $product_types =ProductTypes::with('products')->get();
+        return view('Front.product',compact('product_types'));
     }
 
 }
