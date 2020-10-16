@@ -17,6 +17,7 @@
                 <div class="info_content">
                 <h3>價錢:${{$product->price}}</h3>
                 {{$product->info}}
+                {{-- {{!!$product->info!!}}summernote上傳須用此方法括弧內放驚嘆號 --}}
                 </div>
 
             </div>
