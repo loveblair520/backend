@@ -17,6 +17,14 @@
   <form method="POST" action="/admin/products/store" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
+        <label for="product_type_id">商品類別<small class="text-danger"></small></label>
+        <select class="form-control" name="product_type_id" id="product_type_id">
+            @foreach ($product_types as $product_type)
+        <option value="{{$product_type->id}}">{{$product_type->type_name}}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="form-group">
         <label for="name">商品名稱<small class="text-danger">（限制至多20字）</small></label>
         <input type="text" class="form-control" id="name" aria-describedby="emailHelp" name="name" required>
     </div>
