@@ -92,6 +92,8 @@ class ProductTypesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ProductTypes::destroy($id);
+
+        return redirect('/admin/product_types');
     }
 }

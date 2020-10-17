@@ -28,13 +28,17 @@
 
         @foreach ($product_types as $product_type)
             <tr>
-                        <th>{{$product_type->type_name}}</th>
-                        <th>{{$product_type->sort}}</th>
-                        <th>
-                        <a href="/admin/product_types/{{$product_type->id}}/edit" class="btn btn-sm btn-info">編輯</a>
-                            {{-- <button class="btn btn-danger btn-sm btn-delete" data-productsid="{{$product_types->id}}">刪除</button> --}}
-                        </th>
-                    </tr>
+                    <th>{{$product_type->type_name}}</th>
+                    <th>{{$product_type->sort}}</th>
+                    <th>
+                    <a href="/admin/product_types/{{$product_type->id}}/edit" class="btn btn-sm btn-info">編輯</a>
+                    <button class="btn btn-danger btn-sm btn-delete" data-ptid="{{$product_type->id}}">刪除</button>
+                    <form id="delete-form-{{$product_type->id}}" action="/admin/product_types/{{$product_type->id}}" method="POST" style="display: none;">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                    </th>
+            </tr>
         @endforeach
 
     </tbody>
@@ -53,7 +57,7 @@
             $(document).ready(function() {
             $('#example').DataTable();
             $("#example").on("click" , ".btn-delete",function(){
-                var products_id = this.dataset.productsid;
+                var product_type_id = this.dataset.ptid;
 
                 Swal.fire({
                 title: '你確定要刪除嗎？',
@@ -65,12 +69,7 @@
                 confirmButtonText: 'Yes,  it!'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    // Swal.fire(
-                    // 'Deleted!',
-                    // 'Your file has been deleted.',
-                    // 'success'
-                    // )
-                    window.location.href = `/admin/products/destroy/${products_id}`;
+                    $('#delete-form-' + product_type_id).submit();
                 }
                 })
 
