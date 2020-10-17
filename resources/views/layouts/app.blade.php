@@ -41,7 +41,7 @@
                             <a class="nav-link" href="/admin/products">商品管理</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/product_types">產品管理</a>
+                            <a class="nav-link" href="/admin/product_types">商品類別管理</a>
                         </li>
                     </ul>
 
