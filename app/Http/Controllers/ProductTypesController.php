@@ -13,20 +13,24 @@ class ProductTypesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($product_type_id)
+    public function index()
     {
-        //方法一 去抓到type id(已知對應關聯)
-        $products = Products::where('product_type_id',$product_type_id)->get();
+        // //方法一 去抓到type id(已知對應關聯)
+        // $products = Products::where('product_type_id',$product_type_id)->get();
 
-        //方法二 先找出type再去做關聯 find($product_type_id)->這個是Model裡面function的products;
-        $products = ProductTypes::find($product_type_id)->products;
+        // //方法二 先找出type再去做關聯 find($product_type_id)->這個是Model裡面function的products;
+        // $products = ProductTypes::find($product_type_id)->products;
 
-        //方法三 with 有relations可抓到父子層的東西
+        // //方法三 with 有relations可抓到父子層的東西
+        // // $product_type =ProductTypes::where('id',$product_type_id)->with('products')->get();
+
         // $product_type =ProductTypes::where('id',$product_type_id)->with('products')->get();
 
-        $product_type =ProductTypes::where('id',$product_type_id)->with('products')->get();
+        // return view('Front/product',compact($product_type));
+        $product_types = ProductTypes::all();
 
-        return view('Front/product',compact($product_type));
+        return view('admin/product_types/index',compact('product_types'));
+
     }
 
     /**
@@ -36,7 +40,7 @@ class ProductTypesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/product_types/create');
     }
 
     /**
@@ -47,7 +51,9 @@ class ProductTypesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        ProductTypes::create($request->all());
+
+        return redirect('/admin/product_types');
     }
 
     /**
