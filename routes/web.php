@@ -54,7 +54,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('product_types', 'ProductTypesController', ['except' => [
         'show'
     ]]);
-    Route::get('product_types/{prouduct_types_id}','ProductTypesController@index');
+    // Route::get('product_types/{prouduct_types_id}','ProductTypesController@index');
 
 });
 

@@ -14,7 +14,7 @@
     </ol>
   </nav>
 
-  <a href="/admin/product_types/create " class="btn btn-success mb-3">新增商品類別</a>
+  <a href="/admin/product_types/create" class="btn btn-success mb-3">新增商品類別</a>
 
   <table id="example" class="table table-striped table-bordered" style="width:100%">
     <thead>
@@ -31,7 +31,7 @@
                         <th>{{$product_type->type_name}}</th>
                         <th>{{$product_type->sort}}</th>
                         <th>
-                            <a href="admin/product_types/{{$product_type}}/edit" class="btn btn-sm btn-info">編輯</a>
+                        <a href="/admin/product_types/{{$product_type->id}}/edit" class="btn btn-sm btn-info">編輯</a>
                             {{-- <button class="btn btn-danger btn-sm btn-delete" data-productsid="{{$product_types->id}}">刪除</button> --}}
                         </th>
                     </tr>

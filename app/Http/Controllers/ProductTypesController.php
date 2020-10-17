@@ -65,7 +65,9 @@ class ProductTypesController extends Controller
 
     public function edit($id)
     {
-        //
+        $product_type =ProductTypes::find($id);
+
+        return view('admin.product_types.edit',compact('product_type'));
     }
 
     /**
@@ -77,7 +79,9 @@ class ProductTypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product_type = ProductTypes::find($id);
+        $product_type->update($request->all());
+        return redirect('/admin/product_types');
     }
 
     /**
