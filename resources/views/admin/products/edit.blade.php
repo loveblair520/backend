@@ -31,7 +31,7 @@
         <input type="file" class="form-control-file" id="product_image" name="product_image" >
       </div>
       <div>
-          多圖顯示<br>
+          多圖顯示<input type="file" class="form-control-file" id="multi_images" name="multi_images[]" multiple><br>
             @foreach ($products->productImgs as $productImg)
                 <img class="img-fluid" width="200" src="{{$productImg->img_url}}" alt="">
             @endforeach
