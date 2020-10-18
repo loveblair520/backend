@@ -30,6 +30,12 @@
         <label for="product_image">修改商品照片<small class="text-danger">（建議圖片寬高為4:3）</small></label>
         <input type="file" class="form-control-file" id="product_image" name="product_image" >
       </div>
+      <div>
+          多圖顯示<br>
+            @foreach ($products->productImgs as $productImg)
+                <img class="img-fluid" width="200" src="{{$productImg->img_url}}" alt="">
+            @endforeach
+      </div>
       <div class="form-group">
         <label for="info">介紹內容</label>
         <textarea class="form-control" id="info" rows="3" name="info" required>{{$products->info}}</textarea>
