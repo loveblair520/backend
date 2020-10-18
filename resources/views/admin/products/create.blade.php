@@ -37,6 +37,12 @@
         <input type="file" class="form-control-file" id="product_image" name="product_image" required>
       </div>
       <div class="form-group">
+        <label for="multi_images">內頁多張圖片上傳
+            <small class="text-danger">（建議圖片寬高為4:3）</small>
+        </label>
+        <input type="file" class="form-control-file" id="multi_images" name="multi_images[]" multiple required>
+      </div>
+      <div class="form-group">
         <label for="info">介紹內容</label>
         <textarea class="form-control" id="info" rows="3" name="info" required></textarea>
       </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ProductImg;
 use App\Products;
 use App\ProductTypes;
 use Illuminate\Support\Facades\File;
@@ -44,6 +45,9 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+        $files = $request->file('multi_images');
+        // dd($files);
+
         $requestData = $request->all();
         if($request->hasFile('product_image')) {
             $file = $request->file('product_image');
@@ -52,7 +56,21 @@ class ProductsController extends Controller
         }
 
 
-        Products::create($requestData);
+        $product = Products::create($requestData);
+        //取得剛剛建立資料的id
+        $product_id = $product->id;
+
+        //多圖上傳
+        if($request->hasFile('multi_images')){
+            $files = $request->file('multi_images');
+            foreach($files as $file){
+                $path = $this->fileUpload($file,'products');
+                ProductImg::create([
+                    'img_url' => $path,
+                    'product_id' => $product_id,
+                ]);
+            }
+        }
 
         return redirect('/admin/products');
 
@@ -78,7 +96,11 @@ class ProductsController extends Controller
     public function edit($id)
     {
         $products = Products::find($id);
-        return view('admin.products.edit',compact('products'));
+
+        // dd($products->productImgs);
+
+        $product_types = ProductTypes::all();
+        return view('admin.products.edit',compact('products','product_types'));
     }
 
     /**
