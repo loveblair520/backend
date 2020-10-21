@@ -29,6 +29,13 @@ Route::get('/contact_us', 'FrontController@contact_us');
 Route::get('/product', 'FrontController@product'); //產品
 Route::get('/product/{product_id}', 'FrontController@product_detail'); //產品
 
+//shopping cart
+Route::post('/addcart', 'CartController@addcart');
+
+Route::get('/getcontent', 'CartController@getcontent');
+
+Route::get('/totalcart', 'CartController@totalcart');
+
 
 Route::post('/store_contact', 'FrontController@store_contact');
 Route::get('/admin', 'HomeController@index')->name('home');

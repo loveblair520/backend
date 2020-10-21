@@ -71,6 +71,9 @@ class FrontController extends Controller
 
     public function product()
     {
+        // auth()->user() ? $user =auth()
+        
+
         $product_types =ProductTypes::with('products')->get();
         return view('Front.product',compact('product_types'));
     }

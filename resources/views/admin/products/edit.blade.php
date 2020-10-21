@@ -17,6 +17,14 @@
 <form method="POST" action="/admin/products/update/{{$products->id}}" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
+        <label for="product_type_id">商品類別<small class="text-danger"></small></label>
+        <select class="form-control" name="product_type_id" id="product_type_id">
+            @foreach ($product_types as $product_type)
+        <option value="{{$product_type->id}}">{{$product_type->type_name}}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="form-group">
         <label for="name">商品名稱<small class="text-danger">（限制至多20字）</small></label>
     <input type="text" class="form-control" id="name" aria-describedby="emailHelp" name="name" value="{{$products->name}}" required>
     </div>
@@ -34,6 +42,7 @@
           多圖顯示<input type="file" class="form-control-file" id="multi_images" name="multi_images[]" multiple><br>
             @foreach ($products->productImgs as $productImg)
                 <img class="img-fluid" width="200" src="{{$productImg->img_url}}" alt="">
+                <button class="btn btn-danger btn-sm" type="button">X</button>
             @endforeach
       </div>
       <div class="form-group">

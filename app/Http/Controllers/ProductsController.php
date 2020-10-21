@@ -151,6 +151,17 @@ class ProductsController extends Controller
         //刪除資料庫資料
         Products::destroy($id);
 
+        //多張圖片的刪除
+        $product_imgs = ProductImg::where('product_id',$id)->get();
+        foreach($product_imgs as $product_img){
+            $old_product_img = $product_img->img;
+            if(file_exists(public_path().$old_product_img)){
+                File::delete(public_path().$old_product_img);
+            }
+
+            $product_img->delete();
+        }
+
         return redirect('/admin/products');
     }
 
